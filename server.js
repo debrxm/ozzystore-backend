@@ -24,12 +24,12 @@ app.post('/sendmail', async (req, res) => {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'ozzycdes@gmail.com',
-      pass: '+Bello..3'
+      user: 'officialozzystore@gmail.com',
+      pass: 'Ozzy2...store'
     }
   })
   let info = await transporter.sendMail({
-    from: "ozzycdes@gmail.com", // sender address
+    from: "officialozzystore@gmail.com", // sender address
     to: "officialozzystore@gmail.com", // list of receivers
     subject: email, // Subject line
     text: email, // plain text body
