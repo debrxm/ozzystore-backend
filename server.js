@@ -1,6 +1,7 @@
 const express = require('express')
 const nodemailer = require("nodemailer");
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const app = express()
 app.use(bodyParser.json());
@@ -9,6 +10,7 @@ app.use(
     extended: false
   })
 );
+app.use(cors());
 app.get('/', (req, res) => res.send('Server is Running'))
 app.post('/sendmail', async (req, res) => {
   const {
