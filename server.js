@@ -1,9 +1,8 @@
 const express = require('express')
 const nodemailer = require("nodemailer");
-const cors = require('cors')
+
 const app = express()
 app.use(express.json());
-app.use(cors());
 app.get('/', (req, res) => res.send('Server is Running'))
 app.post('/contact', async function (req, res) {
   const {
