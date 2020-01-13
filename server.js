@@ -10,8 +10,10 @@ app.use(
   })
 );
 app.get('/', (req, res) => res.send('Server is Running'))
-app.post('/contact', async function (req, res) {
+app.post('/sendmail', async (req, res) => {
   const {
+    firstName,
+    lastName,
     email,
     subject,
     text
@@ -29,12 +31,17 @@ app.post('/contact', async function (req, res) {
     to: "officialozzystore@gmail.com", // list of receivers
     subject: email, // Subject line
     text: email, // plain text body
-    html: text // html body
+    html: `name: ${firstName} ${lastName}
+          ${text}
+            ` // html body
   });
   console.log("Message sent: %s", info.messageId);
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
   res.status(200).json("success");
 });
+
+module.exports = app;
+
 app.listen(process.env.PORT || 8080, () => {
   console.log(`App listening on port ${process.env.PORT}`);
 });
