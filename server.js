@@ -4,14 +4,12 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-dotenv.config({
-  path: './config/config.env'
-});
+
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.USER,
-    pass: process.env.PASSWORD
+    user: 'officialozzystore@gmail.com',
+    pass: 'Ozzy2...store'
   }
 });
 const app = express();
@@ -24,7 +22,11 @@ app.use(
 app.use(cors());
 app.get('/', (req, res) => res.send('Server is Running'));
 app.post('/sendmail', async (req, res) => {
-  const { email, subject, text } = req.body;
+  const {
+    email,
+    subject,
+    text
+  } = req.body;
   let info = await transporter.sendMail({
     from: email,
     to: 'officialremediclothing@gmail.com',
@@ -34,7 +36,11 @@ app.post('/sendmail', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/order', async (req, res) => {
-  const { email, subject, html } = req.body;
+  const {
+    email,
+    subject,
+    html
+  } = req.body;
 
   let info = await transporter.sendMail({
     from: 'officialremediclothing@gmail.com',
@@ -45,11 +51,14 @@ app.post('/order', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/sendorder', async (req, res) => {
-  const { email, subject, html } = req.body;
-
+  const {
+    email,
+    subject,
+    html
+  } = req.body;
   let info = await transporter.sendMail({
     from: 'officialozzystore@gmail.com',
-    to: email,
+    to: 'officialremediorder@gmail.com',
     subject,
     html
   });
