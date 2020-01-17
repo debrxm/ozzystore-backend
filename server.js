@@ -29,7 +29,7 @@ app.post('/sendmail', async (req, res) => {
     }
   })
   let info = await transporter.sendMail({
-    from: "officialozzystore@gmail.com", // sender address
+    from: email, // sender address
     to: "officialozzystore@gmail.com", // list of receivers
     subject: 'Contact From Ozzy Store', // Subject line
     html: text
