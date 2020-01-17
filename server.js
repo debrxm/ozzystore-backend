@@ -1,8 +1,19 @@
+const path = require('path');
 const express = require('express');
+const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+dotenv.config({
+  path: './config/config.env'
+});
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASSWORD
+  }
+});
 const app = express();
 app.use(bodyParser.json());
 app.use(
@@ -13,43 +24,35 @@ app.use(
 app.use(cors());
 app.get('/', (req, res) => res.send('Server is Running'));
 app.post('/sendmail', async (req, res) => {
-  const { firstName, lastName, email, subject, text } = req.body;
-  console.log(req.body);
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'officialozzystore@gmail.com',
-      pass: 'Ozzy2...store'
-    }
-  });
+  const { email, subject, text } = req.body;
   let info = await transporter.sendMail({
-    from: email, // sender address
-    to: 'officialozzystore@gmail.com', // list of receivers
-    subject: subject, // Subject line
+    from: email,
+    to: 'officialremediclothing@gmail.com',
+    subject: subject,
     html: text
   });
-  console.log('Message sent: %s', info.messageId);
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   res.status(200).json('success');
 });
 app.post('/order', async (req, res) => {
   const { email, subject, html } = req.body;
 
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'officialozzystore@gmail.com',
-      pass: 'Ozzy2...store'
-    }
+  let info = await transporter.sendMail({
+    from: 'officialremediclothing@gmail.com',
+    to: email,
+    subject,
+    html
   });
+  res.status(200).json('success');
+});
+app.post('/sendorder', async (req, res) => {
+  const { email, subject, html } = req.body;
+
   let info = await transporter.sendMail({
     from: 'officialozzystore@gmail.com',
     to: email,
     subject,
     html
   });
-  console.log('Message sent: %s', info.messageId);
-  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   res.status(200).json('success');
 });
 
