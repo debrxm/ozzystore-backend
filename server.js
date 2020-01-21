@@ -64,6 +64,19 @@ app.post('/sendorder', async (req, res) => {
   });
   res.status(200).json('success');
 });
+app.post('/usepromo', async (req, res) => {
+  const {
+    code
+  } = req.body;
+  const promos = {
+    rmd200: 200
+  }
+  for (let key in promos) {
+    if (promos.hasOwnProperty(key) & key === code.toLowerCase()) {
+      res.status(200).json(promos[key]);
+    }
+  }
+});
 
 module.exports = app;
 
