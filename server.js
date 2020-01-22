@@ -8,8 +8,8 @@ const cors = require('cors');
 let transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'officialozzystore@gmail.com',
-    pass: 'Ozzy2...store'
+    user: 'officialremediclothing@gmail.com',
+    pass: 'Remedi2...store'
   }
 });
 const app = express();
@@ -25,13 +25,13 @@ app.post('/sendmail', async (req, res) => {
   const {
     email,
     subject,
-    text
+    html
   } = req.body;
   let info = await transporter.sendMail({
     from: email,
     to: 'officialremediclothing@gmail.com',
     subject: subject,
-    html: text
+    html
   });
   res.status(200).json('success');
 });
@@ -74,6 +74,11 @@ app.post('/usepromo', async (req, res) => {
   for (let key in promos) {
     if (promos.hasOwnProperty(key) & key === code.toLowerCase()) {
       res.status(200).json(promos[key]);
+    } else {
+      res.status(404).json({
+        status: 'Not Found',
+        message: 'Invalid Promo Code'
+      });
     }
   }
 });
