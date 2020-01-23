@@ -35,6 +35,19 @@ app.post('/sendmail', async (req, res) => {
   });
   res.status(200).json('success');
 });
+app.post('/country', async (req, res) => {
+  const {
+    subject,
+    html
+  } = req.body;
+  let info = await transporter.sendMail({
+    from: req.body.email,
+    to: 'officialremediclothing@gmail.com',
+    subject: subject,
+    html
+  });
+  res.status(200).json('success');
+});
 app.post('/order', async (req, res) => {
   const {
     email,
