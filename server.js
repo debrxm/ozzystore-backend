@@ -72,7 +72,9 @@ app.post('/usepromo', async (req, res) => {
     if (promos.hasOwnProperty(key) & (key === code.toLowerCase())) {
       res.status(200).json(promos[key]);
     } else {
-      res.status(404).json(0);
+      res.status(404).json({
+        message: 'Invalid Code'
+      });
     }
   }
 });
