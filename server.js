@@ -65,7 +65,7 @@ app.post('/sendorder', async (req, res) => {
 app.post('/usepromo', async (req, res) => {
   const { code } = req.body;
   const promos = {
-    rmd200: 200,
+    rmd200: 0,
     rvmadl6: 600
   };
   for (let key in promos) {
