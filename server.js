@@ -22,11 +22,7 @@ app.use(
 app.use(cors());
 app.get('/', (req, res) => res.send('Server is Running'));
 app.post('/sendmail', async (req, res) => {
-  const {
-    email,
-    subject,
-    html
-  } = req.body;
+  const { email, subject, html } = req.body;
   let info = await transporter.sendMail({
     from: email,
     to: 'officialremediclothing@gmail.com',
@@ -36,10 +32,7 @@ app.post('/sendmail', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/country', async (req, res) => {
-  const {
-    subject,
-    html
-  } = req.body;
+  const { subject, html } = req.body;
   let info = await transporter.sendMail({
     from: req.body.email,
     to: 'officialremediclothing@gmail.com',
@@ -49,11 +42,7 @@ app.post('/country', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/order', async (req, res) => {
-  const {
-    email,
-    subject,
-    html
-  } = req.body;
+  const { email, subject, html } = req.body;
 
   let info = await transporter.sendMail({
     from: 'officialremediclothing@gmail.com',
@@ -64,11 +53,7 @@ app.post('/order', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/sendorder', async (req, res) => {
-  const {
-    email,
-    subject,
-    html
-  } = req.body;
+  const { email, subject, html } = req.body;
   let info = await transporter.sendMail({
     from: 'officialozzystore@gmail.com',
     to: 'officialremediorder@gmail.com',
@@ -78,20 +63,16 @@ app.post('/sendorder', async (req, res) => {
   res.status(200).json('success');
 });
 app.post('/usepromo', async (req, res) => {
-  const {
-    code
-  } = req.body;
+  const { code } = req.body;
   const promos = {
-    rmd200: 200
-  }
+    rmd200: 200,
+    rvmadl6: 600
+  };
   for (let key in promos) {
-    if (promos.hasOwnProperty(key) & key === code.toLowerCase()) {
+    if (promos.hasOwnProperty(key) & (key === code.toLowerCase())) {
       res.status(200).json(promos[key]);
     } else {
-      res.status(404).json({
-        status: 'Not Found',
-        message: 'Invalid Promo Code'
-      });
+      res.status(404).json(0);
     }
   }
 });
