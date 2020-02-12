@@ -1,6 +1,4 @@
-const path = require('path');
 const express = require('express');
-const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -64,15 +62,20 @@ app.post('/sendorder', async (req, res) => {
 });
 app.post('/usepromo', async (req, res) => {
   const { code } = req.body;
+
   const promos = {
-    rmd200: 0,
-    rvmadl6: 600
+    rvmadl600: 600,
+    rmd200: 0
   };
   for (let key in promos) {
     if (promos.hasOwnProperty(key) & (key === code.toLowerCase())) {
-      res.status(200).json(promos[key]);
+      res.status(200).json({
+        status: 'success',
+        message: promos[key]
+      });
     } else {
       res.status(404).json({
+        status: 'failed',
         message: 'Invalid Code'
       });
     }
